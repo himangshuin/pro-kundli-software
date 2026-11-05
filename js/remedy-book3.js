@@ -21,14 +21,15 @@ function bk3Rows(c,x){const P=BK3_LKP[x.p];if(!P)return'';
   +bkRow('Lal Kitab: special remedy',bkE(P.sp),'EAR ch.15')}
 
 // ---------- today ----------
-function bk3Today(){const d=new Date(),w=d.getDay(),[dn,pl,dress]=BK3_DAY[w],P=BK_P[pl],g=P.gem;
+function bk3Today(){const d=new Date(),w=d.getDay(),[dn,pl,dress]=BK3_DAY[w],P=BK_P[pl];
+ const R=(a,b)=>`<tr><th scope="row">${tx(a)}</th><td>${b}</td></tr>`;
  return`<div class="card bk-today"><h2>${tx('Today’s remedy')}: ${tx(dn)} · ${tx(pl)}</h2>
- <table class="px-t bk-t"><tr><th>${tx('Item')}</th><th>${tx('Remedy')}</th></tr>
- <tr><td>${tx('Worship')}</td><td>${bkE(P.dei['Lal Kitab'])} (${bkE('Lal Kitab deity')}); ${bkE(P.recite)}</td></tr>
- <tr><td>${tx('Mantra')}</td><td>${pxEsc(P.mt)}<br><small>${pxEsc(P.beej)}</small></td></tr>
- <tr><td>${tx('Dress and stones')}</td><td>${bkE(dress)}</td></tr>
- <tr><td>${tx('Charity')}</td><td>${bkE(P.give)}</td></tr>
- <tr><td>${tx('Fast')}</td><td>${bkE(P.vrata)}</td></tr></table>
+ <table class="px-t bk-t"><tbody>
+ ${R('Worship',`${bkE(P.dei['Lal Kitab'])} (${bkE('Lal Kitab deity')}); ${bkE(P.recite)}`)}
+ ${R('Mantra',`${pxEsc(P.mt)}<br><small>${pxEsc(P.beej)}</small>`)}
+ ${R('Dress and stones',bkE(dress))}
+ ${R('Charity',bkE(P.give))}
+ ${R('Fast',bkE(P.vrata))}</tbody></table>
  <small>${tx('Source: EAR ch.13, ch.16 and RAS ch.2. General weekday guidance, not tied to your chart.')}</small></div>`}
 
 // ---------- Lal Kitab cautions + marriage ----------
@@ -76,7 +77,7 @@ function bk3Vastu(c){
   const pl=d[2].split(' / ')[0];if(BK3_DIR&&['Sun','Moon','Mars','Mercury','Jupiter','Venus','Saturn'].includes(pl)&&bad(pl))issues.push(tx(pl)+' ('+tx('direction planet')+')');
   return`<tr><td>${tx(d[0])}</td><td>${d[1].join(', ')}</td><td>${tx(d[2])}</td><td class="w">${issues.length?`<span class="bk-v bk-no">${tx('Possible fault')}</span> ${pxEsc(issues.join('; '))}`:`<span class="bk-v bk-ok">${tx('No fault indicated')}</span> <small>${bkE(d[3])}</small>`}</td></tr>`}).join('');
  return`<div class="card sc"><h2>${tx('Vastu directions read from your chart (Lal Kitab)')}</h2>
- <p class="w">${tx('The book maps houses to directions: 1 East, 7 West, 4 North, 10 South, 2 and 3 North-East, 5 and 6 North-West, 8 and 9 South-West, 11 and 12 South-East. A house whose lord is debilitated, combust, in an enemy sign, with a malefic, or in the 6th, 8th or 12th is said to show a Vastu fault in that direction.')}</p>
+ <p class="w">${tx('The book maps each house to a direction, shown in the table below. A house whose lord is debilitated, combust, in an enemy sign, with a malefic, or in the 6th, 8th or 12th is said to show a Vastu fault in that direction.')}</p>
  <table class="px-t"><tr><th>${tx('Direction')}</th><th>${tx('Houses')}</th><th>${tx('Planet')}</th><th>${tx('Reading')}</th></tr>${rows}</table>
  <small>${tx('Mars is shown for the south, as the book also does in its later notes. For a fault, keep that part of the home clean and uncluttered and propitiate the planet; the book also names Vastu Purush puja, Ganesh puja, Navagraha shanti, Shanti path and yagyas as remedies.')}</small></div>`}
 function bk3VastuGuide(){
