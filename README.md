@@ -130,3 +130,13 @@ Adds: **Today's remedy** (weekday planet, mantra, dress and stones, charity, fas
 - **Layout:** the tab is now grouped into eight collapsible sections (Today and upcoming days; Dasha, transit and Sade Sati; Planet-wise remedies; Gems, Rudraksha and herbs; Doshas, cautions and debts; Home, Vastu and colour; Remedies by purpose; Library and reference) under a **remedy overview** card with jump chips for every planet and for each flag found in the chart, a colour legend (Appease / Strengthen / Support), a **search box that filters the whole tab**, and expand/collapse all. Planet cards show a glyph, a status badge and a coloured edge; book remedy tables are two columns (source shown under the label) so they fit phones. Code: `js/remedy-ui.js` plus styles at the end of `css/style.css`.
 - **Assamese:** `js/i18n-bk-as.js` adds about 3,200 Assamese entries to `PXAS` for all text in `remedy-book.js`, `remedy-book2.js`, `remedy-book3.js` and `remedy-ui.js` (checked over 2,500 random charts; month names and chapter citations are handled in code). Hindi and Bengali still fall back to English for these new strings.
 - Removed book exercise questions that had leaked into the Lal Kitab data, and trailing separators in library rows.
+
+## v23: Remedies tab on phones
+Tested in headless Chromium at 390 px, 360 px and 1280 px, in Assamese and English.
+- **Sticky section bar** (Overview, Today, Periods, Planets, Gems, Doshas, Home, Purpose, Library) with scroll-spy and a search shortcut; the open section's header also stays pinned while you read it. On desktop the bar sits under the sticky header and tab bar.
+- **Header scrolls away on phones** (it was a fixed 115 px). The page's own "jump chips" are hidden in this tab because the new bar replaces them.
+- **Flat layout:** one level of cards instead of five nested boxes, so text now uses about 85 % of the screen width. Section height dropped from about 43,000 px to about 7,400 px (planet cards start collapsed, only the first open).
+- **Overview card:** planets in a 3×3 grid (red = Appease, green = Strengthen), flags as full-width tap targets, big search box (16 px so iOS does not zoom) and Expand/Collapse all.
+- **Tables:** every multi-column table now shows its column names as labels and short values flow inline (`js/remedy-ui.js`, `rmEnhance`). Fixed a bug where the first row of the two-column book tables was hidden on phones.
+- **Navigation:** jump buttons compute their own scroll position, so they land exactly under the bar (the app's global `scroll-padding-top` used to leave them about 140 px short).
+- **Translation:** swept 400 consecutive days (every weekday and month) so "Today's remedy" and the fasting calendar are fully Assamese; verified in the browser for all seven weekdays.
